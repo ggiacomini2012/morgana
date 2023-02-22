@@ -1,0 +1,8 @@
+vite*
+node_modules
+.*
+*.test.*
+*.spec.*
+*.config.*
+cypress/*
+*.json

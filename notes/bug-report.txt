@@ -1,0 +1,6 @@
+<data>
+  <título>
+  <mensagem>
+    <solução>
+<-fim>
+

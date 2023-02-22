@@ -1,0 +1,6 @@
+@media (min-aspect-ratio: 13/9),
+(orientation: landscape) {
+	#template {
+		background-color: blue;
+	}
+}

@@ -1,0 +1,5 @@
+@media (max-aspect-ratio: 13/9) AND (orientation: portrait) {
+	#template {
+		background-color: blue;
+	}
+}
