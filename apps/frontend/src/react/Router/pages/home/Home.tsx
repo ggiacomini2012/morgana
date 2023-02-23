@@ -43,33 +43,35 @@ function Home() {
     functions.fadeIn('home');
   }, []);
 
+  const apiUrl = import.meta.env.VITE_APP_API_URL || 'http://localhost:8585';
+
   const createUser = async () => {
     try {
       const userBody = {
-        "name": nameCreate,
-        "email": emailCreate,
-        "password": passwordCreate
+        name: nameCreate,
+        email: emailCreate,
+        password: passwordCreate,
       };
-      const {data: postData} = await axios.post('http://localhost:8585/user', userBody);
-      const {data: getData} = await axios.get('http://localhost:8585/user/name', {params: userBody});
+      const { data: postData } = await axios.post(`${apiUrl}/user`, userBody);
+      const { data: getData } = await axios.get(`${apiUrl}/user/name`, { params: userBody });
       // const id = getData.id;
       const AgendaBody = {
         info: 'test',
         userId: getData.id,
       };
-      await axios.post('http://localhost:8585/agenda', AgendaBody);
+      await axios.post(`${apiUrl}/agenda`, AgendaBody);
       const result = postData.message;
-      return result;    
-    } catch(error: any) { 
+      return result;
+    } catch (error: any) {
       return `${error.response.data.message}`;
     }
   };
-  
+
   const getUser = async () => {
     try {
-      let response;      
-      if(userName === '') {
-        const {data} = await axios.get('http://localhost:8585/user');
+      let response;
+      if (userName === '') {
+        const { data } = await axios.get(`${apiUrl}/user`);
         response = data;
         let guy = '';
         response.map((element: AxiosResponse | any) => {
@@ -77,13 +79,14 @@ function Home() {
         });
         setGetUserResponse(guy);
         setUserId('');
- 
       }
-      if(userName !== '') {  
+      if (userName !== '') {
         const bodyUser = {
           name: userName,
         };
-        const {data: dataUser} = await axios.get(`http://localhost:8585/user/name`, {params: bodyUser});
+        const { data: dataUser } = await axios.get(`${apiUrl}/user/name`, {
+          params: bodyUser,
+        });
         response = dataUser;
         const guy = `name:${response.name}\nemail:${response.email}`;
         setGetUserResponse(guy);
@@ -91,53 +94,54 @@ function Home() {
         const bodyAgenda = {
           userId: dataUser.id,
         };
-        const {data: dataAgenda} = await axios.get(`http://localhost:8585/agenda/userid`, {params: bodyAgenda});
+        const { data: dataAgenda } = await axios.get(`${apiUrl}/agenda/userid`, {
+          params: bodyAgenda,
+        });
         console.log(dataAgenda);
-        
+
         setAgendaInfo(dataAgenda.info);
-        // return `name:${response.name}\nemail:${response.email}`;    
+        // return `name:${response.name}\nemail:${response.email}`;
       }
-    } catch(error: any) { 
+    } catch (error: any) {
       return `${error.response.data.message}`;
     }
-  };  
-  
+  };
+
   const updateUser = async () => {
     try {
       const body = {
-        "email": emailToUpdate,
-        "updatedName": nameUpdate,
-        "updatedEmail": emailUpdate,
+        email: emailToUpdate,
+        updatedName: nameUpdate,
+        updatedEmail: emailUpdate,
       };
-      const {data} = await axios.put('http://localhost:8585/user', body);
+      const { data } = await axios.put(`${apiUrl}/user`, body);
       const result = data.message;
-      return result;    
-    } catch(error: any) { 
+      return result;
+    } catch (error: any) {
       return `${error.response.data.message}`;
     }
   };
 
   const deleteUser = async () => {
     try {
-    const {data} = await axios.delete('http://localhost:8585/user');
-    const result = data.message;
-    return result;    
-    } catch(error: any) { 
+      const { data } = await axios.delete(`${apiUrl}/user`);
+      const result = data.message;
+      return result;
+    } catch (error: any) {
       return `${error.response.data.message}`;
     }
   };
 
-  
   const savingAgenda = async (elementValue: string) => {
-     setAgendaInfo(elementValue);
-    if(userId) {
+    setAgendaInfo(elementValue);
+    if (userId) {
       try {
         const body = {
           userId: Number(userId),
-          info: elementValue
+          info: elementValue,
         };
-        await axios.put('http://localhost:8585/agenda', body);
-      } catch(error: any) { 
+        await axios.put(`${apiUrl}/agenda`, body);
+      } catch (error: any) {
         return `${error.response.data.message}`;
       }
     }
@@ -157,37 +161,53 @@ function Home() {
           </figure>
         </section>
         <section className={`api${theme}`}>
-        <div className={`user-create${theme}`}>
-          create
-          <input placeholder='name' onChange={(e) => setNameCreate(e.target.value)} />
-          <input type='email' placeholder='email' onChange={(e) => setEmailCreate(e.target.value)} />
-          <input type='password' placeholder='password' onChange={(e) => setPasswordCreate(e.target.value)} />
-          <button onClick={async () => setCreateUserResponse(await createUser())} >go</button>
-          <div className={`result${theme}`}>{`${createUserResponse || 'resultado'}`}</div>
+          <div className={`user-create${theme}`}>
+            create
+            <input placeholder="name" onChange={(e) => setNameCreate(e.target.value)} />
+            <input
+              type="email"
+              placeholder="email"
+              onChange={(e) => setEmailCreate(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="password"
+              onChange={(e) => setPasswordCreate(e.target.value)}
+            />
+            <button onClick={async () => setCreateUserResponse(await createUser())}>go</button>
+            <div className={`result${theme}`}>{`${createUserResponse || 'resultado'}`}</div>
           </div>
-        <div className={`user-read${theme}`}>
-          read
-          <input placeholder='get user by name' onChange={(e) => setUserName(e.target.value)} />
-          <button onClick={async () => await getUser()} >go</button>
-          <div className={`result${theme}`}>{`${getUserResponse || 'resultado'}`}</div>
+          <div className={`user-read${theme}`}>
+            read
+            <input placeholder="get user by name" onChange={(e) => setUserName(e.target.value)} />
+            <button onClick={async () => await getUser()}>go</button>
+            <div className={`result${theme}`}>{`${getUserResponse || 'resultado'}`}</div>
           </div>
-        <div className={`user-update${theme}`}>
-          update
-          <input placeholder='get user by email' onChange={(e) => setEmailToUpdate(e.target.value)} />
-          <input placeholder='new name' onChange={(e) => setNameUpdate(e.target.value)} />
-          <input placeholder='new email' onChange={(e) => setEmailUpdate(e.target.value)} />
-          <button onClick={async () => setUpdateUserResponse(await updateUser())} >go</button>
-          <div className={`result${theme}`}>{`${updateUserResponse || 'resultado'}`}</div>
+          <div className={`user-update${theme}`}>
+            update
+            <input
+              placeholder="get user by email"
+              onChange={(e) => setEmailToUpdate(e.target.value)}
+            />
+            <input placeholder="new name" onChange={(e) => setNameUpdate(e.target.value)} />
+            <input placeholder="new email" onChange={(e) => setEmailUpdate(e.target.value)} />
+            <button onClick={async () => setUpdateUserResponse(await updateUser())}>go</button>
+            <div className={`result${theme}`}>{`${updateUserResponse || 'resultado'}`}</div>
           </div>
-        <div className={`user-delete${theme}`}>
-          delete
-          <input/>
-          <button onClick={async () => setDeleteUserResponse(await deleteUser())} >go</button>
-          <div className={`result${theme}`}>{`${deleteUserResponse || 'resultado'}`}</div>
+          <div className={`user-delete${theme}`}>
+            delete
+            <input />
+            <button onClick={async () => setDeleteUserResponse(await deleteUser())}>go</button>
+            <div className={`result${theme}`}>{`${deleteUserResponse || 'resultado'}`}</div>
           </div>
         </section>
         <section className={`agenda${theme}`}>
-          <textarea className={`info${theme}`} placeholder='Whats in your mind...' value={agendaInfo} onChange={(e) => savingAgenda(e.target.value)}/>
+          <textarea
+            className={`info${theme}`}
+            placeholder="Whats in your mind..."
+            value={agendaInfo}
+            onChange={(e) => savingAgenda(e.target.value)}
+          />
           <div className={`info-saving${theme}`}>saving...</div>
         </section>
       </main>
