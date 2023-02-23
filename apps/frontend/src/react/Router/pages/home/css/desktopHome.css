@@ -109,12 +109,57 @@
 	
 	.info-dark, .info-light {
 		width: 100%;
+		height: 100%;
 	}
-
+	
 	.info-saving-dark, .info-saving-light {
+		transition: 1s;
+		transform: scale(0);
 		position: absolute;
     bottom: 1vh;
-    right: 1vw;
+    right: 3vw;
+		font-size: 2.5vh;
 	}
 
+	.info-saving-appear-dark, .info-saving-appear-light {
+		transform: scale(1);
+	}
+
+	.info-saving-dark span, .info-saving-light span{
+		position: relative;
+		animation: bounce 1s ease-in-out infinite;
+	}
+
+	@keyframes bounce{
+		100%, 0%{
+			bottom: 1vh;
+		}
+		50%{
+			bottom: 1.3vh;
+		}
+	}
+	.info-saving-dark span:nth-child(2) {
+		animation-delay:0.1s;
+	}
+	.info-saving-dark span:nth-child(3) {
+		animation-delay:0.2s;
+	}
+	.info-saving-dark span:nth-child(4) {
+		animation-delay:0.3s;
+	}
+	.info-saving-dark span:nth-child(5) {
+		animation-delay:0.4s;
+	}
+	.info-saving-dark span:nth-child(6) {
+		animation-delay:0.5s;
+	}
+	.info-saving-dark span:nth-child(7) {
+		animation-delay:0.6s;
+	}
+	.info-saving-dark span:nth-child(8) {
+		animation-delay:0.7s;
+	}
+	.info-saving-dark span:nth-child(9) {
+		animation-delay:0.8s;
+	}
 }

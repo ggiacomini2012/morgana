@@ -33,11 +33,13 @@ agora vamos:
 					- buscar ✅
 
 	- ajeitar o básico do css:
-		- desktop
-		- portrait
-		- landscape
+		- desktop ✅
+		- portrait ✅
+		- landscape ✅
 
 	- deployar o front, o back e o banco de dados
-		- usaremos versel pro front
-		- supabase pro banco
-		- api versel ou firebase
+		- usaremos versel pro front ✅
+		- supabase pro banco ✅
+		- api no render  ✅
+
+	

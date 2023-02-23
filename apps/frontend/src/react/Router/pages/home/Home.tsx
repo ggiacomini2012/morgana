@@ -33,6 +33,7 @@ function Home() {
   const [nameUpdate, setNameUpdate] = useState('');
   const [updateUserResponse, setUpdateUserResponse] = useState<AxiosResponse>();
   const [agendaInfo, setAgendaInfo] = useState('');
+  const [agendaInfoSave, setAgendaInfoSave] = useState(0);
 
   const theme = functions.colorThemeSelector(themeState.colorTheme);
   // const translator = (text: any) => functions.languageSelector(languageState.toTranslate, text);
@@ -134,17 +135,32 @@ function Home() {
 
   const savingAgenda = async (elementValue: string) => {
     setAgendaInfo(elementValue);
-    if (userId) {
-      try {
-        const body = {
-          userId: Number(userId),
-          info: elementValue,
-        };
-        await axios.put(`${apiUrl}/agenda`, body);
-      } catch (error: any) {
-        return `${error.response.data.message}`;
+    clearTimeout(agendaInfoSave);
+    document
+    .getElementById('info-saving')
+    ?.classList.remove('info-saving-appear-dark', 'info-saving-appear-light');
+    const saveAfterTyping = setTimeout(async () => {
+      if (userId) {
+        try {
+          document
+            .getElementById('info-saving')
+            ?.classList.add('info-saving-appear-dark', 'info-saving-appear-light');
+          const body = {
+            userId: Number(userId),
+            info: elementValue,
+          };
+          await axios.put(`${apiUrl}/agenda`, body);
+          setTimeout(() => {
+            document
+              .getElementById('info-saving')
+              ?.classList.remove('info-saving-appear-dark', 'info-saving-appear-light');
+          }, 3000);
+        } catch (error: any) {
+          return `${error.response.data.message}`;
+        }
       }
-    }
+    }, 2000);
+    setAgendaInfoSave(Number(saveAfterTyping));
   };
 
   return (
@@ -208,7 +224,17 @@ function Home() {
             value={agendaInfo}
             onChange={(e) => savingAgenda(e.target.value)}
           />
-          <div className={`info-saving${theme}`}>saving...</div>
+          <div id="info-saving" className={`info-saving${theme}`}>
+            <span>s</span>
+            <span>a</span>
+            <span>v</span>
+            <span>i</span>
+            <span>n</span>
+            <span>g</span>
+            <span>.</span>
+            <span>.</span>
+            <span>.</span>
+          </div>
         </section>
       </main>
       <Footer />
