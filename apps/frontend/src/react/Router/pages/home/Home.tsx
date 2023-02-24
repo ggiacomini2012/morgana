@@ -33,7 +33,9 @@ function Home() {
   const [nameUpdate, setNameUpdate] = useState('');
   const [updateUserResponse, setUpdateUserResponse] = useState<AxiosResponse>();
   const [agendaInfo, setAgendaInfo] = useState('');
-  const [agendaInfoSave, setAgendaInfoSave] = useState(0);
+  const [resetSetTimeoutSaving, setResetSetTimeoutSaving] = useState(0);
+  const [resetSetTimeoutRemoveClass, setResetSetTimeoutRemoveClass] = useState(0);
+
 
   const theme = functions.colorThemeSelector(themeState.colorTheme);
   // const translator = (text: any) => functions.languageSelector(languageState.toTranslate, text);
@@ -135,11 +137,12 @@ function Home() {
 
   const savingAgenda = async (elementValue: string) => {
     setAgendaInfo(elementValue);
-    clearTimeout(agendaInfoSave);
+    clearTimeout(resetSetTimeoutSaving);
+    clearTimeout(resetSetTimeoutRemoveClass);
     document
     .getElementById('info-saving')
     ?.classList.remove('info-saving-appear-dark', 'info-saving-appear-light');
-    const saveAfterTyping = setTimeout(async () => {
+       const saveAfterTyping = setTimeout(async () => {
       if (userId) {
         try {
           document
@@ -150,17 +153,18 @@ function Home() {
             info: elementValue,
           };
           await axios.put(`${apiUrl}/agenda`, body);
-          setTimeout(() => {
-            document
-              .getElementById('info-saving')
-              ?.classList.remove('info-saving-appear-dark', 'info-saving-appear-light');
-          }, 3000);
         } catch (error: any) {
           return `${error.response.data.message}`;
         }
       }
     }, 2000);
-    setAgendaInfoSave(Number(saveAfterTyping));
+    const removeClass = setTimeout(() => {
+      document
+        .getElementById('info-saving')
+        ?.classList.remove('info-saving-appear-dark', 'info-saving-appear-light');
+    }, 5000);
+    setResetSetTimeoutSaving(Number(saveAfterTyping));
+    setResetSetTimeoutRemoveClass(Number(removeClass));
   };
 
   return (
