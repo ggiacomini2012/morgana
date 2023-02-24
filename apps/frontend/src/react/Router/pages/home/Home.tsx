@@ -101,7 +101,7 @@ function Home() {
           params: bodyAgenda,
         });
         console.log(dataAgenda);
-
+        clearTimeout(resetSetTimeoutAgendaInfo);
         const refreshInfo = setInterval(async () => {
           const bodyAgendaInterval = {
             userId: dataUser.id,
