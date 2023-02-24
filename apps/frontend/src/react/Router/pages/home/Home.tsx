@@ -35,18 +35,18 @@ function Home() {
   const [agendaInfo, setAgendaInfo] = useState('');
   const [resetSetTimeoutSaving, setResetSetTimeoutSaving] = useState(0);
   const [resetSetTimeoutRemoveClass, setResetSetTimeoutRemoveClass] = useState(0);
-
+  const [resetSetTimeoutAgendaInfo, setResetSetTimeoutAgendaInfo] = useState(0);
 
   const theme = functions.colorThemeSelector(themeState.colorTheme);
   // const translator = (text: any) => functions.languageSelector(languageState.toTranslate, text);
 
   // homeVariables.translator = translator;
 
+  const apiUrl = import.meta.env.VITE_APP_API_URL || 'http://localhost:8585';
+
   useEffect(() => {
     functions.fadeIn('home');
   }, []);
-
-  const apiUrl = import.meta.env.VITE_APP_API_URL || 'http://localhost:8585';
 
   const createUser = async () => {
     try {
@@ -102,6 +102,17 @@ function Home() {
         });
         console.log(dataAgenda);
 
+        const refreshInfo = setInterval(async () => {
+          const bodyAgendaInterval = {
+            userId: dataUser.id,
+          };
+          const { data: dataAgendaInterval } = await axios.get(`${apiUrl}/agenda/userid`, {
+            params: bodyAgendaInterval,
+          });
+          setAgendaInfo(dataAgendaInterval.info);
+          console.log('listenning logging');
+        }, 4000);
+        setResetSetTimeoutAgendaInfo(Number(refreshInfo));
         setAgendaInfo(dataAgenda.info);
         // return `name:${response.name}\nemail:${response.email}`;
       }
@@ -139,10 +150,11 @@ function Home() {
     setAgendaInfo(elementValue);
     clearTimeout(resetSetTimeoutSaving);
     clearTimeout(resetSetTimeoutRemoveClass);
+    clearTimeout(resetSetTimeoutAgendaInfo);
     document
-    .getElementById('info-saving')
-    ?.classList.remove('info-saving-appear-dark', 'info-saving-appear-light');
-       const saveAfterTyping = setTimeout(async () => {
+      .getElementById('info-saving')
+      ?.classList.remove('info-saving-appear-dark', 'info-saving-appear-light');
+    const saveAfterTyping = setTimeout(async () => {
       if (userId) {
         try {
           document
@@ -163,6 +175,18 @@ function Home() {
         .getElementById('info-saving')
         ?.classList.remove('info-saving-appear-dark', 'info-saving-appear-light');
     }, 5000);
+    const refreshInfo = setInterval(async () => {
+      const bodyAgendaInterval = {
+        userId,
+      };
+      const { data: dataAgendaInterval } = await axios.get(`${apiUrl}/agenda/userid`, {
+        params: bodyAgendaInterval,
+      });
+      console.log('listenning after typing');
+      
+      setAgendaInfo(dataAgendaInterval.info);
+    }, 4000);
+    setResetSetTimeoutAgendaInfo(Number(refreshInfo));
     setResetSetTimeoutSaving(Number(saveAfterTyping));
     setResetSetTimeoutRemoveClass(Number(removeClass));
   };
