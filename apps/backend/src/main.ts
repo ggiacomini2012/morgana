@@ -2,6 +2,7 @@ import * as dotenv from 'dotenv';
 import express from 'express';
 import routes from './routes/routes';
 import cors from 'cors';
+import axios from 'axios';
 // import { PrismaClient } from '@prisma/client';
 // const prisma = new PrismaClient();
 
@@ -10,10 +11,16 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-
 app.use('/user', routes.user);
 app.use('/agenda', routes.agenda);
 
+const secound = 1000;
+const minute = secound * 60;
+// const hour = minute * 60;
+
+setInterval(async () => {
+  await axios.get(process.env.VITE_APP_API_URL || 'http://localhost:8585');
+}, minute * 5);
 
 app.get('/', (req, res) => res.send('Morgana Api. Routes: /user and /agenda...'));
 
