@@ -45,7 +45,9 @@ agora vamos:
 
 Agora que tudo esta funcionando partamos para o app em sí.
 
-Começaremos com o front com testes, logo fazermos tudo funcionar com o localhost e teremos uma opção para salvar no banco de dados
+Estou fazendo o front para me ajudar a ter um prototipo assim que desta vez fazer os testes juntamente pode me prejudicar na criatividade.
+
+Começaremos com o front logo fazermos tudo funcionar com o localhost e teremos uma opção para salvar no banco de dados
 
 Questões a lidar: bando de bados lento pois entra em modo dormir
 
