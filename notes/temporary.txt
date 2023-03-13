@@ -42,4 +42,14 @@ agora vamos:
 		- supabase pro banco ✅
 		- api no render  ✅
 
+
+Agora que tudo esta funcionando partamos para o app em sí.
+
+Começaremos com o front com testes, logo fazermos tudo funcionar com o localhost e teremos uma opção para salvar no banco de dados
+
+Questões a lidar: bando de bados lento pois entra em modo dormir
+
+Primeiro passo é limpar o front de componentes, funcoes e strings que não vamos utilizar
+
+
 	
