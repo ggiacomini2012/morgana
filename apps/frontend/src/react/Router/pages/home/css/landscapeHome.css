@@ -1,0 +1,30 @@
+@media (min-aspect-ratio: 13/9),
+(orientation: landscape) {
+
+
+	.home-dark,
+	.home-light {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		height: calc(100% - var(--sidebar-footer-height));
+		margin-top: var(--sidebar-height);
+		margin-bottom: var(--footer-height);
+		align-items: center;
+		background-color: var(--60-dark-theme);
+		color: var(--10-dark-theme);
+		transition: all ease-in-out 0.5s;
+		opacity: 0;
+		box-sizing: border-box;
+		overflow-y: scroll;
+	}
+
+	.home-light {
+		background-color: var(--60-light-theme);
+		color: var(--10-light-theme);
+	}
+
+	.fade-in {
+		opacity: 1;
+	}
+}

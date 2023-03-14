@@ -1,0 +1,6 @@
+{
+  "*.(ts|tsx)": [
+      "nx run frontend:lint",
+      "nx run backend:lint"
+  ]
+}
