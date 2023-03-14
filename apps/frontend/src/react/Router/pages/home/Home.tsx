@@ -67,13 +67,27 @@ function Home() {
               {e}
               </div>
               <div id="graph" data-testid="graph" className={`graph${theme} graph`}>
-                <div id="graph-each-day" data-testid="graph-each-day" className={`graph-each-day${theme} graph-each-day`}></div>
-                <div id="graph-each-day" data-testid="graph-each-day" className={`graph-each-day${theme} graph-each-day`}></div>
-                <div id="graph-each-day" data-testid="graph-each-day" className={`graph-each-day${theme} graph-each-day`}></div>
-                <div id="graph-each-day" data-testid="graph-each-day" className={`graph-each-day${theme} graph-each-day`}></div>
-                <div id="graph-each-day" data-testid="graph-each-day" className={`graph-each-day${theme} graph-each-day`}></div>
-                <div id="graph-each-day" data-testid="graph-each-day" className={`graph-each-day${theme} graph-each-day`}></div>
-                <div id="graph-each-day" data-testid="graph-each-day" className={`graph-each-day${theme} graph-each-day`}></div>
+                <div id="graph-each-day" data-testid="graph-each-day" className={`graph-each-day${theme} graph-each-day`}>
+                  <input type="range" id="input" data-testid="input" className={`input${theme} input`}/>
+                </div>
+                <div id="graph-each-day" data-testid="graph-each-day" className={`graph-each-day${theme} graph-each-day`}>
+                  <input type="range" id="input" data-testid="input" className={`input${theme} input`}/>
+                </div>
+                <div id="graph-each-day" data-testid="graph-each-day" className={`graph-each-day${theme} graph-each-day`}>
+                  <input type="range" id="input" data-testid="input" className={`input${theme} input`}/>
+                </div>
+                <div id="graph-each-day" data-testid="graph-each-day" className={`graph-each-day${theme} graph-each-day`}>
+                  <input type="range" id="input" data-testid="input" className={`input${theme} input`}/>
+                </div>
+                <div id="graph-each-day" data-testid="graph-each-day" className={`graph-each-day${theme} graph-each-day`}>
+                  <input type="range" id="input" data-testid="input" className={`input${theme} input`}/>
+                </div>
+                <div id="graph-each-day" data-testid="graph-each-day" className={`graph-each-day${theme} graph-each-day`}>
+                  <input type="range" id="input" data-testid="input" className={`input${theme} input`}/>
+                </div>
+                <div id="graph-each-day" data-testid="graph-each-day" className={`graph-each-day${theme} graph-each-day`}>
+                  <input type="range" id="input" data-testid="input" className={`input${theme} input`}/>
+                </div>
               </div>
             </div>)
             )}
